@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>נרשמת | אתגר החיטוב 11 ימים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e8290b;--orange:#ff6b35;--gold:#ffc107;--green:#25d366;--bg:#050508;--card:#0d0d14;--white:#f0f0f8;--muted3:#8888a0}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--white);direction:rtl;text-align:center;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(37,211,102,.12) 0%,transparent 65%)}
+.wrap{position:relative;z-index:1;max-width:480px;width:100%}
+.check{font-size:5rem;margin-bottom:20px;animation:pop .5s cubic-bezier(.34,1.6,.64,1) forwards}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+h1{font-size:clamp(1.8rem,5vw,2.4rem);font-weight:900;line-height:1.15;margin-bottom:12px}
+h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:.95rem;color:var(--muted3);line-height:1.7;margin-bottom:36px}
+.steps{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;text-align:right}
+.step-row{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}
+.step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--orange));display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;flex-shrink:0}
+.step-text{font-size:.85rem;color:var(--white);line-height:1.5}
+.step-text strong{display:block;margin-bottom:3px;font-size:.9rem}
+.pay-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:17px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  color:#fff;font-size:1.05rem;font-weight:900;font-family:inherit;
+  cursor:pointer;box-shadow:0 8px 36px rgba(232,41,11,.42);
+  text-decoration:none;margin-bottom:14px;
+  transition:transform .2s,box-shadow .2s;
+}
+.pay-btn:hover{transform:translateY(-2px);box-shadow:0 14px 50px rgba(232,41,11,.6)}
+.wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:15px;border-radius:14px;border:2px solid var(--green);
+  background:rgba(37,211,102,.08);
+  color:var(--green);font-size:.95rem;font-weight:900;font-family:inherit;
+  cursor:pointer;text-decoration:none;
+  transition:background .2s;
+}
+.wa-btn:hover{background:rgba(37,211,102,.15)}
+.skip{font-size:.72rem;color:var(--muted3);margin-top:14px}
+.skip a{color:var(--muted3);text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <div class="check">✅</div>
+  <h1>נרשמת בהצלחה<br>לאתגר <span>11 הימים</span></h1>
+  <p class="sub">שלב אחד קטן נשאר — השלמת התשלום<br>ואחריו תקבל גישה מיידית לקבוצת ווטסאפ.</p>
+
+  <div class="steps">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>השלם את התשלום</strong>₪97 חד פעמי · מאובטח · 7 ימי אחריות מלאה</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>הצטרף לקבוצת הווטסאפ</strong>מיד אחרי התשלום — קישור ישיר לקבוצה</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>יום 0 מתחיל</strong>תקבל את הפרק הראשון ומפה שלמה לאתגר</div>
+    </div>
+  </div>
+
+  <a class="pay-btn" href="PAYMENT_LINK_HERE" id="payBtn">← לתשלום מאובטח · ₪97</a>
+  <a class="wa-btn" href="WA_GROUP_LINK_HERE" id="waBtn" target="_blank">💬 הצטרף לקבוצת ווטסאפ</a>
+  <div class="skip">שאלות? <a href="https://wa.me/972537718200">דבר עם אביאל</a></div>
+</div>
+
+<script>
+// קבל פרמטרים מה-URL (שם, טלפון) אם עברו
+const p=new URLSearchParams(window.location.search);
+const name=p.get('name');
+if(name){
+  document.querySelector('h1').innerHTML=`ברוך הבא <span>${name}</span> 👊<br>נרשמת לאתגר 11 הימים`;
+}
+</script>
+</body>
+</html>
