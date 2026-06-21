@@ -700,7 +700,7 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
 })();
 
 // ── FORM ──
-const SHEET_URL='APPS_SCRIPT_URL_HERE';
+const SHEET_URL='https://script.google.com/macros/s/AKfycbzoW2uZ2YAc1MuZxHFiHV4skYQJdZUna42Nz5345tykEOU00NjUVftwpcGQ2yQHNnstaA/exec';
 function submitForm(){
   const name=document.getElementById('inp-name').value.trim();
   const phone=document.getElementById('inp-phone').value.trim();
@@ -708,7 +708,7 @@ function submitForm(){
   document.getElementById('formWrap').style.display='none';
   document.getElementById('formSuccess').style.display='block';
   // שמור לגוגל שיטס
-  if(SHEET_URL!=='APPS_SCRIPT_URL_HERE'){
+  if(SHEET_URL){
     fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name,phone,date:new Date().toLocaleString('he-IL')})});
   }
