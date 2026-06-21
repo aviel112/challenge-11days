@@ -9,7 +9,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--red:#e8290b;--orange:#ff6b35;--gold:#ffc107;--green:#25d366;--bg:#050508;--card:#0d0d14;--white:#f0f0f8;--muted3:#8888a0}
-body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--white);direction:rtl;text-align:center;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--white);direction:rtl;text-align:center;min-height:100vh;padding:48px 24px 60px;}
 .bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(37,211,102,.12) 0%,transparent 65%)}
 .wrap{position:relative;z-index:1;max-width:480px;width:100%}
 .check{font-size:5rem;margin-bottom:20px;animation:pop .5s cubic-bezier(.34,1.6,.64,1) forwards}
@@ -76,17 +76,25 @@ h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-backgrou
   <h1>נרשמת בהצלחה<br>לאתגר <span>11 הימים</span></h1>
   <p class="sub">חישבתי לך את ה-TDEE האישי שלך — עכשיו נשאר רק לשלם ולהיכנס לקבוצה</p>
 
-  <!-- TDEE כרטיס -->
-  <div class="tdee-card" id="tdeeCard" style="display:none">
+  <!-- TDEE — נשמר בגיליון, לא מוצג ללקוח -->
+  <div class="tdee-card" id="tdeeCard" style="display:none!important">
     <div class="tdee-title">⚡ ה-TDEE האישי שלך</div>
     <div class="tdee-main">
       <div class="tdee-num" id="tdeeNum">—</div>
-      <div class="tdee-sub">קלוריות ליום לירידה מבוקרת בשומן</div>
+      <div class="tdee-sub">קלוריות ליום לתחזוקה</div>
+    </div>
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="font-size:.72rem;color:var(--muted3);margin-bottom:4px">יעד קלורי יומי (גירעון -400)</div>
+      <div style="font-size:1.8rem;font-weight:900;color:var(--orange)" id="targetNum">—</div>
+      <div style="font-size:.7rem;color:var(--muted3)">קלוריות ליום לירידה בשומן</div>
     </div>
     <div class="tdee-macros">
       <div class="macro"><div class="macro-val" id="mProtein">—</div><div class="macro-lbl">חלבון (גר׳)</div></div>
       <div class="macro"><div class="macro-val" id="mCarbs">—</div><div class="macro-lbl">פחמימות (גר׳)</div></div>
       <div class="macro"><div class="macro-val" id="mFat">—</div><div class="macro-lbl">שומנים (גר׳)</div></div>
+    </div>
+    <div id="menuBadge" style="display:none;margin-top:14px;text-align:center;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);border-radius:10px;padding:10px;font-size:.8rem;color:#86efac">
+      📋 אביאל שולח לך תפריט: <strong id="menuLabel"></strong>
     </div>
   </div>
 
@@ -116,25 +124,32 @@ h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-backgrou
 const p=new URLSearchParams(window.location.search);
 const name=p.get('name')||'';
 const phone=p.get('phone')||'';
+const gender=p.get('gender')||'male';
 const tdee=p.get('tdee');
+const target=p.get('target');
 const protein=p.get('protein');
 const carbs=p.get('carbs');
 const fat=p.get('fat');
+const menuType=p.get('menuType')||'';
 const weight=p.get('weight')||'';
 const height=p.get('height')||'';
 const age=p.get('age')||'';
 const bf=p.get('bf')||'';
 
 if(name){
-  document.querySelector('h1').innerHTML=`ברוך הבא <span>${name}</span> 👊<br>נרשמת לאתגר 11 הימים`;
+  const greet = gender==='female' ? 'ברוכה הבאה' : 'ברוך הבא';
+  document.querySelector('h1').innerHTML=`${greet} <span>${name.split(' ')[0]}</span> 👊<br>נרשמת לאתגר 11 הימים`;
 }
 
-if(tdee){
-  document.getElementById('tdeeCard').style.display='block';
-  document.getElementById('tdeeNum').textContent=tdee;
-  document.getElementById('mProtein').textContent=protein;
-  document.getElementById('mCarbs').textContent=carbs;
-  document.getElementById('mFat').textContent=fat;
+// TDEE נשמר בגיליון — לא מוצג ללקוח
+
+if(menuType){
+  const labels = {
+    'גבר_1':'גברים עד 70 ק"ג','גבר_2':'גברים 70-90 ק"ג','גבר_3':'גברים מעל 90 ק"ג',
+    'אישה_1':'נשים עד 60 ק"ג','אישה_2':'נשים 60-75 ק"ג','אישה_3':'נשים מעל 75 ק"ג',
+  };
+  document.getElementById('menuBadge').style.display='block';
+  document.getElementById('menuLabel').textContent = labels[menuType] || menuType;
 }
 
 function confirmPaid(){
