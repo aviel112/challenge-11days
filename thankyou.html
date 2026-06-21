@@ -78,10 +78,10 @@ h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-backgrou
 
   <!-- שלב 2: מופיע רק אחרי אישור תשלום -->
   <div class="wa-box" id="step2" style="display:none">
-    <div class="wa-box-icon">🎉</div>
-    <div class="wa-box-title">תשלום התקבל — ברוך הבא לאתגר</div>
-    <div class="wa-box-sub">לחץ להצטרפות לקבוצת ווטסאפ ולקבלת יום 0</div>
-    <a class="wa-btn" href="https://chat.whatsapp.com/F0aruhTchTs1VUgVkLnW9u?s=cl&p=i&mlu=1" target="_blank">💬 הצטרף לקבוצה עכשיו</a>
+    <div class="wa-box-icon">✅</div>
+    <div class="wa-box-title">שלח לי אישור תשלום</div>
+    <div class="wa-box-sub">שלח צילום מסך של התשלום מביט — אני אאשר ואוסיף אותך לקבוצה תוך כמה שעות</div>
+    <a class="wa-btn" id="waBtn" target="_blank">💬 שלח אישור תשלום לאביאל</a>
   </div>
 
   <div class="skip">שאלות? <a href="https://wa.me/972537718200">דבר עם אביאל</a></div>
@@ -94,6 +94,10 @@ if(name){
   document.querySelector('h1').innerHTML=`ברוך הבא <span>${name}</span> 👊<br>נרשמת לאתגר 11 הימים`;
 }
 function confirmPaid(){
+  const name=new URLSearchParams(window.location.search).get('name')||'';
+  const phone=new URLSearchParams(window.location.search).get('phone')||'';
+  const msg=encodeURIComponent(`היי אביאל! שילמתי לאתגר 11 ימים 💪\nשם: ${name}\nטלפון: ${phone}\nמצרף אישור תשלום מביט`);
+  document.getElementById('waBtn').href=`https://wa.me/972537718200?text=${msg}`;
   document.getElementById('step1').style.display='none';
   document.getElementById('step2').style.display='block';
   document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'center'});
