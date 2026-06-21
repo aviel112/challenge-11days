@@ -119,6 +119,17 @@ a{color:inherit;text-decoration:none}
 }
 .form-btn:hover{box-shadow:0 10px 40px rgba(232,41,11,.6);transform:translateY(-2px)}
 .form-note{font-size:.68rem;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt-tag{font-weight:400;color:var(--muted);font-size:.68rem}
+.photo-upload{
+  display:flex;align-items:center;gap:10px;
+  border:1.5px dashed var(--border2);border-radius:12px;
+  padding:14px 16px;cursor:pointer;transition:border-color .2s;
+  background:rgba(255,255,255,.02)
+}
+.photo-upload:hover{border-color:var(--orange)}
+.photo-icon{font-size:1.4rem}
+.photo-txt{font-size:.78rem;color:var(--muted3)}
 .form-success{display:none;text-align:center;padding:20px 0}
 .form-success .fs-icon{font-size:2.5rem;margin-bottom:10px}
 .form-success .fs-title{font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:6px}
@@ -371,17 +382,47 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
     <div class="form-card" id="register">
       <div id="formWrap">
         <div class="form-title" data-edit contenteditable="false">🔥 אני רוצה להצטרף</div>
-        <div class="form-sub" data-edit contenteditable="false">מלא פרטים ונחזור אליך בוואטסאפ עם כל הפרטים</div>
-        <div class="form-group">
-          <label class="form-label">שם מלא</label>
-          <input class="form-input" id="inp-name" type="text" placeholder="שם פרטי ושם משפחה" autocomplete="name"/>
+        <div class="form-sub" data-edit contenteditable="false">מלא את הפרטים — נחשב לך TDEE אישי ונבנה לך תפריט מותאם</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">שם מלא</label>
+            <input class="form-input" id="inp-name" type="text" placeholder="שם ושם משפחה" autocomplete="name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">טלפון לוואטסאפ</label>
+            <input class="form-input" id="inp-phone" type="tel" placeholder="05XXXXXXXX" autocomplete="tel"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">גיל</label>
+            <input class="form-input" id="inp-age" type="number" placeholder="גיל" min="16" max="70"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">גובה (ס"מ)</label>
+            <input class="form-input" id="inp-height" type="number" placeholder="175" min="140" max="220"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">משקל (ק"ג)</label>
+            <input class="form-input" id="inp-weight" type="number" placeholder="80" min="40" max="200"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">אחוז שומן (לדעתך)</label>
+            <input class="form-input" id="inp-bf" type="number" placeholder="20%" min="5" max="50"/>
+          </div>
         </div>
         <div class="form-group">
-          <label class="form-label">טלפון לוואטסאפ</label>
-          <input class="form-input" id="inp-phone" type="tel" placeholder="05XXXXXXXX" autocomplete="tel"/>
+          <label class="form-label">תמונת גוף <span class="opt-tag">רשות — עוזרת לי להתאים תפריט מדויק</span></label>
+          <label class="photo-upload" id="photoLabel">
+            <input type="file" id="inp-photo" accept="image/*" capture="environment" style="display:none" onchange="previewPhoto(this)"/>
+            <span class="photo-icon">📸</span>
+            <span class="photo-txt" id="photoTxt">לחץ להוספת תמונה (לא חובה)</span>
+          </label>
         </div>
-        <button class="form-btn" onclick="submitForm()">← שמור לי מקום</button>
-        <div class="form-note">🔒 ללא עלות עכשיו · ללא ספאם · 7 ימי אחריות</div>
+        <button class="form-btn" onclick="submitForm()">← חשב לי TDEE ושמור מקום</button>
+        <div class="form-note">🔒 הפרטים פרטיים לחלוטין · 7 ימי אחריות מלאה</div>
       </div>
       <div class="form-success" id="formSuccess">
         <div class="fs-icon">✅</div>
@@ -472,55 +513,6 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
         <div class="sol-icon">📋</div>
         <div class="sol-title">תוכנית Day 11+ מוכנה</div>
         <div class="sol-desc">לא נגמרים ביום 10. מקבלים תוכנית יציאה נכונה שמונעת ריבאונד ושומרת על התוצאות.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AI PREVIEW -->
-<section class="section">
-  <div class="section-inner">
-    <div class="section-tag fade-in">תפריט AI אישי</div>
-    <div class="ai-preview">
-      <div class="ai-side-text fade-in">
-        <h2 class="ai-side-title">תפריט שבנוי <em>בשבילך.</em><br>לא לכולם.</h2>
-        <p class="ai-side-desc">
-          שאלון קצר של 2 דקות — ומקבל תפריט יומי מלא מותאם למשקל שלך, לשעות שלך, לאוכל שאתה אוהב.<br>
-          לא תבנית. לא "ממוצע". מדויק לגוף שלך.
-        </p>
-        <div class="ai-bullets">
-          <div class="ai-bullet">חלבון מחושב לפי משקל גוף</div>
-          <div class="ai-bullet">מזונות שאתה באמת אוכל</div>
-          <div class="ai-bullet">5 ארוחות או 3 — לפי הסגנון שלך</div>
-          <div class="ai-bullet">גירעון נכון — בלי להרגיש רעב</div>
-        </div>
-      </div>
-      <div class="ai-phone fade-in">
-        <div class="ai-phone-bar">
-          <div class="ai-phone-dot"></div>
-          <div class="ai-phone-title">תפריט AI · יואב · 82 ק"ג</div>
-        </div>
-        <div class="ai-msg">
-          <div class="ai-msg-label">שאלה</div>
-          <div class="ai-msg-bubble">מה המשקל שלך ומה אתה אוכל בדרך כלל לארוחת בוקר?</div>
-        </div>
-        <div class="ai-msg">
-          <div class="ai-msg-label">תשובה</div>
-          <div class="ai-msg-bubble" style="background:rgba(255,255,255,.05);border-radius:14px 0 14px 14px">82 ק"ג, בדרך כלל ביצים או קוטג'</div>
-        </div>
-        <div class="ai-msg">
-          <div class="ai-msg-label">תפריט יומי שנבנה</div>
-          <div class="ai-meal-card">
-            <div class="ai-meal-row"><span class="ai-meal-name">🌅 בוקר — חביתה 3 ביצים + גבינה 5%</span><span class="ai-meal-kcal">380 קק"ל</span></div>
-            <div class="ai-meal-row"><span class="ai-meal-name">🕙 ביניים — קוטג' 5% + תפוח</span><span class="ai-meal-kcal">210 קק"ל</span></div>
-            <div class="ai-meal-row"><span class="ai-meal-name">☀️ צהריים — חזה עוף 200ג + אורז</span><span class="ai-meal-kcal">520 קק"ל</span></div>
-            <div class="ai-meal-row"><span class="ai-meal-name">🌙 ערב — סלמון 150ג + ירקות</span><span class="ai-meal-kcal">390 קק"ל</span></div>
-            <div class="ai-meal-row" style="border-top:1px solid rgba(255,107,53,.2);margin-top:6px;padding-top:8px">
-              <span class="ai-meal-name" style="color:var(--orange);font-weight:700">סה"כ יומי</span>
-              <span class="ai-meal-kcal" style="font-size:.8rem">1,500 קק"ל · 165ג חלבון</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -701,20 +693,53 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
 
 // ── FORM ──
 const SHEET_URL='https://script.google.com/macros/s/AKfycbzoW2uZ2YAc1MuZxHFiHV4skYQJdZUna42Nz5345tykEOU00NjUVftwpcGQ2yQHNnstaA/exec';
+function previewPhoto(input){
+  if(input.files&&input.files[0]){
+    document.getElementById('photoTxt').textContent='✅ '+input.files[0].name;
+  }
+}
+
+function calcTDEE(age,height,weight,bf){
+  // Mifflin-St Jeor (זכר)
+  const bmr = 10*weight + 6.25*height - 5*age + 5;
+  const tdee = Math.round(bmr * 1.55); // פעילות בינונית
+  const protein = Math.round(weight * 2);
+  const fat = Math.round((tdee * 0.25) / 9);
+  const carbs = Math.round((tdee - protein*4 - fat*9) / 4);
+  return {tdee, protein, fat, carbs, bmr:Math.round(bmr)};
+}
+
 function submitForm(){
   const name=document.getElementById('inp-name').value.trim();
   const phone=document.getElementById('inp-phone').value.trim();
+  const age=parseInt(document.getElementById('inp-age').value)||0;
+  const height=parseInt(document.getElementById('inp-height').value)||0;
+  const weight=parseInt(document.getElementById('inp-weight').value)||0;
+  const bf=parseInt(document.getElementById('inp-bf').value)||0;
+
   if(!name||!phone){alert('נא למלא שם וטלפון');return}
+  if(!age||!height||!weight){alert('נא למלא גיל, גובה ומשקל');return}
+
+  const tdee = calcTDEE(age,height,weight,bf);
+
   document.getElementById('formWrap').style.display='none';
   document.getElementById('formSuccess').style.display='block';
-  // שמור לגוגל שיטס
+
   if(SHEET_URL){
     fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name,phone,date:new Date().toLocaleString('he-IL')})});
+      body:JSON.stringify({
+        name,phone,age,height,weight,bf,
+        tdee:tdee.tdee,protein:tdee.protein,
+        date:new Date().toLocaleString('he-IL')
+      })});
   }
-  // עבור לדף תודה + תשלום
+
   setTimeout(()=>{
-    window.location.href=`thankyou.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
+    const p=new URLSearchParams({
+      name,phone,age,height,weight,bf,
+      tdee:tdee.tdee,protein:tdee.protein,fat:tdee.fat,carbs:tdee.carbs
+    });
+    window.location.href=`thankyou.html?${p.toString()}`;
   },900);
 }
 

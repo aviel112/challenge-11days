@@ -57,6 +57,16 @@ h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-backgrou
 .qr-wrap{width:300px;border-radius:12px;margin:0 auto;background:#fff;padding:14px}
 .qr-img{width:100%;display:block;border-radius:8px}
 .qr-hint{font-size:.72rem;color:var(--muted3);margin-top:10px}
+.tdee-card{background:rgba(255,107,53,.07);border:1.5px solid rgba(255,107,53,.25);border-radius:20px;padding:22px 20px;margin-bottom:20px;text-align:right}
+.tdee-title{font-size:.75rem;font-weight:700;color:var(--orange);letter-spacing:.08em;margin-bottom:14px;text-align:center}
+.tdee-main{text-align:center;margin-bottom:18px}
+.tdee-num{font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.tdee-sub{font-size:.72rem;color:var(--muted3);margin-top:2px}
+.tdee-macros{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.macro{background:rgba(255,255,255,.04);border-radius:12px;padding:12px 8px;text-align:center}
+.macro-val{font-size:1.3rem;font-weight:900;color:#fff}
+.macro-lbl{font-size:.65rem;color:var(--muted3);margin-top:2px}
+.photo-note{background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);border-radius:12px;padding:12px 16px;font-size:.78rem;color:var(--muted3);margin-bottom:16px;line-height:1.6;text-align:right}
 </style>
 </head>
 <body>
@@ -64,7 +74,21 @@ h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-backgrou
 <div class="wrap">
   <div class="check">✅</div>
   <h1>נרשמת בהצלחה<br>לאתגר <span>11 הימים</span></h1>
-  <p class="sub">שלב אחד קטן נשאר — השלמת התשלום<br>ואחריו תקבל גישה מיידית לקבוצת ווטסאפ.</p>
+  <p class="sub">חישבתי לך את ה-TDEE האישי שלך — עכשיו נשאר רק לשלם ולהיכנס לקבוצה</p>
+
+  <!-- TDEE כרטיס -->
+  <div class="tdee-card" id="tdeeCard" style="display:none">
+    <div class="tdee-title">⚡ ה-TDEE האישי שלך</div>
+    <div class="tdee-main">
+      <div class="tdee-num" id="tdeeNum">—</div>
+      <div class="tdee-sub">קלוריות ליום לירידה מבוקרת בשומן</div>
+    </div>
+    <div class="tdee-macros">
+      <div class="macro"><div class="macro-val" id="mProtein">—</div><div class="macro-lbl">חלבון (גר׳)</div></div>
+      <div class="macro"><div class="macro-val" id="mCarbs">—</div><div class="macro-lbl">פחמימות (גר׳)</div></div>
+      <div class="macro"><div class="macro-val" id="mFat">—</div><div class="macro-lbl">שומנים (גר׳)</div></div>
+    </div>
+  </div>
 
   <!-- שלב 1: QR תשלום -->
   <div class="qr-box" id="step1">
@@ -80,7 +104,8 @@ h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-backgrou
   <div class="wa-box" id="step2" style="display:none">
     <div class="wa-box-icon">✅</div>
     <div class="wa-box-title">שלח לי אישור תשלום</div>
-    <div class="wa-box-sub">שלח צילום מסך של התשלום מביט — אני אאשר ואוסיף אותך לקבוצה תוך כמה שעות</div>
+    <div class="wa-box-sub">שלח צילום מסך מביט + תמונת גוף (אם צירפת) — אני אאשר ואוסיף אותך לקבוצה</div>
+    <div class="photo-note">📸 אם העלית תמונת גוף בטופס — שלח אותה גם בווטסאפ יחד עם אישור התשלום</div>
     <a class="wa-btn" id="waBtn" target="_blank">💬 שלח אישור תשלום לאביאל</a>
   </div>
 
@@ -89,15 +114,41 @@ h1 span{background:linear-gradient(135deg,var(--green),#1db954);-webkit-backgrou
 
 <script>
 const p=new URLSearchParams(window.location.search);
-const name=p.get('name');
+const name=p.get('name')||'';
+const phone=p.get('phone')||'';
+const tdee=p.get('tdee');
+const protein=p.get('protein');
+const carbs=p.get('carbs');
+const fat=p.get('fat');
+const weight=p.get('weight')||'';
+const height=p.get('height')||'';
+const age=p.get('age')||'';
+const bf=p.get('bf')||'';
+
 if(name){
   document.querySelector('h1').innerHTML=`ברוך הבא <span>${name}</span> 👊<br>נרשמת לאתגר 11 הימים`;
 }
+
+if(tdee){
+  document.getElementById('tdeeCard').style.display='block';
+  document.getElementById('tdeeNum').textContent=tdee;
+  document.getElementById('mProtein').textContent=protein;
+  document.getElementById('mCarbs').textContent=carbs;
+  document.getElementById('mFat').textContent=fat;
+}
+
 function confirmPaid(){
-  const name=new URLSearchParams(window.location.search).get('name')||'';
-  const phone=new URLSearchParams(window.location.search).get('phone')||'';
-  const msg=encodeURIComponent(`היי אביאל! שילמתי לאתגר 11 ימים 💪\nשם: ${name}\nטלפון: ${phone}\nמצרף אישור תשלום מביט`);
-  document.getElementById('waBtn').href=`https://wa.me/972537718200?text=${msg}`;
+  const lines=[
+    `היי אביאל! שילמתי לאתגר 11 ימים 💪`,
+    `שם: ${name}`,
+    `טלפון: ${phone}`,
+    weight?`גובה: ${height} ס"מ | משקל: ${weight} ק"ג | גיל: ${age}`:'',
+    bf?`אחוז שומן משוער: ${bf}%`:'',
+    tdee?`TDEE שחושב: ${tdee} קל׳`:'',
+    `\nמצרף אישור תשלום מביט 📎`
+  ].filter(Boolean).join('\n');
+
+  document.getElementById('waBtn').href=`https://wa.me/972537718200?text=${encodeURIComponent(lines)}`;
   document.getElementById('step1').style.display='none';
   document.getElementById('step2').style.display='block';
   document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'center'});

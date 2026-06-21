@@ -54,6 +54,12 @@ function doPost(e) {
       data.date || new Date().toLocaleString('he-IL'),
       data.name || '',
       data.phone || '',
+      data.age || '',
+      data.height || '',
+      data.weight || '',
+      data.bf ? data.bf + '%' : '',
+      data.tdee || '',
+      data.protein || '',
       'ממתין לתשלום 🟡',
       ''
     ]);
@@ -62,7 +68,7 @@ function doPost(e) {
     MailApp.sendEmail(
       'aviamira5@gmail.com',
       '🔥 נרשם חדש — אתגר 11 ימים',
-      `שם: ${data.name}\nטלפון: ${data.phone}\nתאריך: ${data.date}\n\nבדוק אם שלח אישור תשלום בווטסאפ.`
+      `שם: ${data.name}\nטלפון: ${data.phone}\nגיל: ${data.age} | גובה: ${data.height} | משקל: ${data.weight}\nאחוז שומן: ${data.bf}%\nTDEE: ${data.tdee} קל׳ | חלבון: ${data.protein}ג\nתאריך: ${data.date}\n\nבדוק אם שלח אישור תשלום בווטסאפ.`
     );
 
     return ContentService
