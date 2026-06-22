@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>אתגר החיטוב 11 ימים | אביאל עמירה</title>
-<meta name="description" content="11 ימים. מדע אמיתי. שינוי שנשאר. הצטרף לאתגר החיטוב של אביאל עמירה — WNBF Pro Coach."/>
+<title>אתגר החיטוב 10 ימים | אביאל עמירה</title>
+<meta name="description" content="10 ימים. מדע אמיתי. שינוי שנשאר. הצטרף לאתגר החיטוב של אביאל עמירה — WNBF Pro Coach."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -351,16 +351,16 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
     <div class="hero-text">
       <div class="hero-badge"><div class="badge-dot"></div>WNBF Pro Coach · אביאל עמירה</div>
       <div class="hero-eyebrow" data-edit contenteditable="false">אתגר החיטוב האישי</div>
-      <h1 data-edit contenteditable="false">11 ימים שיגרמו לגוף שלך <em>לחטוב אחרת</em></h1>
+      <h1 data-edit contenteditable="false">10 ימים שיגרמו לגוף שלך <em>לחטוב אחרת</em></h1>
       <p class="hero-sub" data-edit contenteditable="false">
         לא דיאטה. לא מניין קלוריות.<br>
         <strong>מדע אמיתי</strong> על איך הגוף שלך עובד —<br>
-        עם תוכנית מותאמת אישית ב-AI.
+        עם תפריט ותוכנית אישית מותאמים לך.
       </p>
 
       <div class="proof-row">
         <div class="proof-chip">🎙️ פודקאסט יומי</div>
-        <div class="proof-chip">🤖 תפריט AI אישי</div>
+        <div class="proof-chip">🤖 תפריט אישי</div>
         <div class="proof-chip">📹 זום ביום 7</div>
         <div class="proof-chip">💬 קהילת ווטסאפ</div>
       </div>
@@ -381,48 +381,64 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
     <!-- FORM CARD -->
     <div class="form-card" id="register">
       <div id="formWrap">
-        <div class="form-title" data-edit contenteditable="false">🔥 אני רוצה להצטרף</div>
-        <div class="form-sub" data-edit contenteditable="false">מלא את הפרטים — נחשב לך TDEE אישי ונבנה לך תפריט מותאם</div>
-        <div class="form-row">
+        <!-- שלב 1 -->
+        <div id="formStep1">
+          <div class="form-title" data-edit contenteditable="false">🔥 אני רוצה להצטרף</div>
+          <div class="form-sub" data-edit contenteditable="false">שנייה אחת — ונשמור לך מקום</div>
           <div class="form-group">
-            <label class="form-label">שם מלא</label>
-            <input class="form-input" id="inp-name" type="text" placeholder="שם ושם משפחה" autocomplete="name"/>
+            <label class="form-label">שם פרטי ושם משפחה</label>
+            <input class="form-input" id="inp-name" type="text" placeholder="לדוגמה: ישראל ישראלי" autocomplete="name"/>
           </div>
           <div class="form-group">
-            <label class="form-label">טלפון לוואטסאפ</label>
+            <label class="form-label">מספר טלפון (ווטסאפ)</label>
             <input class="form-input" id="inp-phone" type="tel" placeholder="05XXXXXXXX" autocomplete="tel"/>
           </div>
+          <button class="form-btn" onclick="goStep2()">← שמור לי מקום</button>
+          <div class="form-note">🔒 ללא ספאם · 7 ימי אחריות מלאה</div>
         </div>
-        <div class="form-row">
+
+        <!-- שלב 2: פרטים לתפריט -->
+        <div id="formStep2" style="display:none">
+          <div class="form-title" style="font-size:1rem;margin-bottom:6px">עוד שלב אחד 💪</div>
+          <div class="form-sub">בשביל שאביאל יוכל לבנות לך תפריט שמותאם בדיוק לגוף שלך</div>
           <div class="form-group">
-            <label class="form-label">גיל</label>
-            <input class="form-input" id="inp-age" type="number" placeholder="גיל" min="16" max="70"/>
+            <label class="form-label">מין</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div id="gbtn-m" onclick="setGenderForm('male')" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:11px;text-align:center;cursor:pointer;font-size:.9rem;font-weight:700;color:#8888a0;transition:all .18s">💪 גבר</div>
+              <div id="gbtn-f" onclick="setGenderForm('female')" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:11px;text-align:center;cursor:pointer;font-size:.9rem;font-weight:700;color:#8888a0;transition:all .18s">🌸 אישה</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">גיל</label>
+              <input class="form-input" id="inp-age" type="number" placeholder="גיל" min="16" max="70"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">גובה (ס"מ)</label>
+              <input class="form-input" id="inp-height" type="number" placeholder="175" min="140" max="220"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">משקל (ק"ג)</label>
+              <input class="form-input" id="inp-weight" type="number" placeholder="80" min="40" max="200"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">אחוז שומן (לדעתך)</label>
+              <input class="form-input" id="inp-bf" type="number" placeholder="20" min="5" max="50"/>
+            </div>
           </div>
           <div class="form-group">
-            <label class="form-label">גובה (ס"מ)</label>
-            <input class="form-input" id="inp-height" type="number" placeholder="175" min="140" max="220"/>
+            <label class="form-label">תמונת גוף <span class="opt-tag">לא חובה — עוזרת לאביאל לדייק</span></label>
+            <label class="photo-upload" id="photoLabel">
+              <input type="file" id="inp-photo" accept="image/*" capture="environment" style="display:none" onchange="previewPhoto(this)"/>
+              <span class="photo-icon">📸</span>
+              <span class="photo-txt" id="photoTxt">לחץ להוספת תמונה</span>
+            </label>
           </div>
+          <button class="form-btn" onclick="submitForm()">← אני רציני — שלח לי תפריט אישי</button>
+          <div class="form-note" style="cursor:pointer;text-decoration:underline;color:var(--muted2)" onclick="submitForm(true)">דלג — אמלא את זה אחר כך</div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">משקל (ק"ג)</label>
-            <input class="form-input" id="inp-weight" type="number" placeholder="80" min="40" max="200"/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">אחוז שומן (לדעתך)</label>
-            <input class="form-input" id="inp-bf" type="number" placeholder="20%" min="5" max="50"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">תמונת גוף <span class="opt-tag">רשות — עוזרת לי להתאים תפריט מדויק</span></label>
-          <label class="photo-upload" id="photoLabel">
-            <input type="file" id="inp-photo" accept="image/*" capture="environment" style="display:none" onchange="previewPhoto(this)"/>
-            <span class="photo-icon">📸</span>
-            <span class="photo-txt" id="photoTxt">לחץ להוספת תמונה (לא חובה)</span>
-          </label>
-        </div>
-        <button class="form-btn" onclick="submitForm()">← חשב לי TDEE ושמור מקום</button>
-        <div class="form-note">🔒 הפרטים פרטיים לחלוטין · 7 ימי אחריות מלאה</div>
       </div>
       <div class="form-success" id="formSuccess">
         <div class="fs-icon">✅</div>
@@ -436,16 +452,16 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stat-cell">
-    <div class="stat-num">₪0</div>
-    <div class="stat-lbl">עלות ההרשמה כרגע</div>
+    <div class="stat-num">₪97</div>
+    <div class="stat-lbl">מחיר כולל, חד פעמי</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num">11</div>
+    <div class="stat-num">10</div>
     <div class="stat-lbl">ימים לשינוי אמיתי</div>
   </div>
   <div class="stat-cell">
     <div class="stat-num">4-5′</div>
-    <div class="stat-lbl">פודקאסט ביום בלבד</div>
+    <div class="stat-lbl">ביום — זה הכל</div>
   </div>
 </div>
 
@@ -491,7 +507,7 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
 <section class="section">
   <div class="section-inner">
     <div class="section-tag">הפתרון</div>
-    <h2 class="section-title">11 ימים שמלמדים אותך <span style="color:var(--orange)">איך הגוף שלך עובד</span></h2>
+    <h2 class="section-title">10 ימים שמלמדים אותך <span style="color:var(--orange)">איך הגוף שלך עובד</span></h2>
     <p class="section-sub">לא עוד דיאטה שנגמרת. מערכת שמבינה את הפיזיולוגיה שלך — ועובדת איתה, לא נגדה.</p>
     <div class="sol-grid fade-in">
       <div class="sol-card">
@@ -501,8 +517,8 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
       </div>
       <div class="sol-card">
         <div class="sol-icon">🤖</div>
-        <div class="sol-title">תוכנית אישית ב-AI</div>
-        <div class="sol-desc">שאלון קצר → תפריט יומי מדויק + תוכנית אימון מותאמת לגוף, למטרה ולציוד שלך.</div>
+        <div class="sol-title">תפריט אישי מותאם</div>
+        <div class="sol-desc">שאביאל בונה לך — תפריט יומי שמתחשב במשקל, בגובה ובמטרה שלך.</div>
       </div>
       <div class="sol-card">
         <div class="sol-icon">📹</div>
@@ -522,7 +538,7 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
 <section class="section dark-sec">
   <div class="section-inner">
     <div class="section-tag">יום אחרי יום</div>
-    <h2 class="section-title">11 פרקים. 11 שכבות של הבנה.</h2>
+    <h2 class="section-title">10 פרקים. 11 שכבות של הבנה.</h2>
     <p class="section-sub">כל יום פרק שפותח לך עוד שכבה. עד שבסוף יש לך מפה שלמה.</p>
     <div class="timeline fade-in">
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-day">יום 0</div><div class="tl-title">ברוכים הבאים למשטר — הניקוי המנטלי</div><div class="tl-desc">מאפסים ציפיות, מגדירים מטרה ריאלית, מבינים מה הולך לקרות.</div><span class="tl-badge">~4 דקות</span></div>
@@ -548,11 +564,11 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
     <p class="section-sub fade-in">הודעות אמיתיות מהקבוצה. לא עריכה, לא שינויים.</p>
     <div class="testi-grid">
       <div class="wa-bubble fade-in">
-        <div class="wa-text" data-edit contenteditable="false">סיימתי את 11 הימים 💪 ירדתי 3.2 ק"ג ובאמת לא הרגשתי שאני על דיאטה. הפרק על NEAT פשוט פתח לי את הראש. תודה אביאל.</div>
+        <div class="wa-text" data-edit contenteditable="false">סיימתי את 10 הימים 💪 ירדתי 3.2 ק"ג ובאמת לא הרגשתי שאני על דיאטה. הפרק על NEAT פשוט פתח לי את הראש. תודה אביאל.</div>
         <div class="wa-footer"><span class="wa-name">יואב ר.</span><span class="wa-time">09:14 ✓✓</span></div>
       </div>
       <div class="wa-bubble fade-in">
-        <div class="wa-text" data-edit contenteditable="false">אני לא מאמינה שאני כותבת את זה כי אני בדרך כלל לא כותבת בקבוצות אבל אחרי 11 ימים חייבת לומר — 2.8- ק"ג ויותר מזה הבנתי למה כל פעם חזרתי לאחור. עכשיו יש לי תוכנית להמשך.</div>
+        <div class="wa-text" data-edit contenteditable="false">אני לא מאמינה שאני כותבת את זה כי אני בדרך כלל לא כותבת בקבוצות אבל אחרי 10 ימים חייבת לומר — 2.8- ק"ג ויותר מזה הבנתי למה כל פעם חזרתי לאחור. עכשיו יש לי תוכנית להמשך.</div>
         <div class="wa-footer"><span class="wa-name">דניאל ב.</span><span class="wa-time">14:28 ✓✓</span></div>
       </div>
       <div class="wa-bubble fade-in">
@@ -569,14 +585,45 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
     <div class="section-tag fade-in">הכל כלול</div>
     <h2 class="section-title fade-in">מה מקבלים באתגר</h2>
     <div class="wg-card fade-in">
-      <div style="font-size:.85rem;color:var(--muted3);text-align:center">סה"כ ערך: <span style="text-decoration:line-through">₪1,490</span> — <strong style="color:var(--orange)">₪97 בלבד</strong></div>
+      <div style="font-size:.85rem;color:var(--muted3);text-align:center"></div>
       <div class="wg-grid">
-        <div class="wg-item"><div class="wg-icon">🎙️</div><div class="wg-text"><strong>11 פרקי פודקאסט</strong>4-5 דקות ביום, מדע מרוכז, גישה לצמיתות</div></div>
-        <div class="wg-item"><div class="wg-icon">🤖</div><div class="wg-text"><strong>תוכנית AI אישית</strong>תפריט + אימון מותאמים לגוף ולמטרה שלך</div></div>
+        <div class="wg-item"><div class="wg-icon">🎙️</div><div class="wg-text"><strong>10 פרקי פודקאסט</strong>4-5 דקות ביום, מדע מרוכז, גישה לצמיתות</div></div>
+        <div class="wg-item"><div class="wg-icon">🤖</div><div class="wg-text"><strong>תפריט אישי מותאם</strong>תפריט + אימון מותאמים לגוף ולמטרה שלך</div></div>
         <div class="wg-item"><div class="wg-icon">📹</div><div class="wg-text"><strong>זום חי ביום 7</strong>מפגש אישי עם אביאל לשאלות ותיאומים</div></div>
         <div class="wg-item"><div class="wg-icon">💬</div><div class="wg-text"><strong>קבוצת ווטסאפ</strong>קהילה פעילה + תמיכה לאורך כל האתגר</div></div>
         <div class="wg-item"><div class="wg-icon">📋</div><div class="wg-text"><strong>תוכנית יציאה Day 11+</strong>Reverse diet שמונע ריבאונד ושומר תוצאות</div></div>
         <div class="wg-item"><div class="wg-icon">🔒</div><div class="wg-text"><strong>אחריות 7 ימים</strong>לא מרוצה — מחזירים כסף. בלי שאלות.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AFTER 11 DAYS -->
+<section class="section dark-sec">
+  <div class="section-inner">
+    <div class="section-tag fade-in">מה קורה אחרי יום 11</div>
+    <h2 class="section-title fade-in">לא נגמרים ביום 11.<br><em style="font-style:normal;color:var(--orange)">מתחילים.</em></h2>
+    <p class="section-sub fade-in">בסוף האתגר יש לך את כל הכלים להמשיך לבד — בלי לפול, בלי ריבאונד, בלי לנחש.</p>
+    <div class="sol-grid fade-in" style="margin-top:28px">
+      <div class="sol-item">
+        <div class="sol-icon">🗺️</div>
+        <div class="sol-title">מפת דרכים להמשך</div>
+        <div class="sol-desc">יציאה מדיאטה נכונה, reverse diet מחושב, ואיך לשמור על התוצאות לאורך זמן.</div>
+      </div>
+      <div class="sol-item">
+        <div class="sol-icon">🧠</div>
+        <div class="sol-title">הבנה שלא נשכחת</div>
+        <div class="sol-desc">אחרי 10 ימים אתה יודע מה גורם לפלטו, איך לנהל רעב, ואיך להתאמן בלי לשרוף את עצמך.</div>
+      </div>
+      <div class="sol-item">
+        <div class="sol-icon">📋</div>
+        <div class="sol-title">כלים מעשיים לצמיתות</div>
+        <div class="sol-desc">תפריט גמיש, עקרונות תזונה שמתאימים לחיים אמיתיים — לא לשבוע של דיאטה.</div>
+      </div>
+      <div class="sol-item">
+        <div class="sol-icon">💬</div>
+        <div class="sol-title">קבוצת WhatsApp של אביאל</div>
+        <div class="sol-desc">נכנסים לקהילה סגורה עם אביאל. שאלות, עדכונים, תמיכה — מי שמסביב לך משפיע על הדרך שלך.</div>
       </div>
     </div>
   </div>
@@ -609,10 +656,10 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
 <!-- CTA -->
 <section class="cta-sec">
   <div class="section-tag">הצטרף עכשיו</div>
-  <h2 class="section-title">11 ימים להבין את הגוף שלך.<br>אחת ולתמיד.</h2>
+  <h2 class="section-title">10 ימים להבין את הגוף שלך.<br>אחת ולתמיד.</h2>
   <p class="section-sub">לא עוד דיאטה שנגמרת בריבאונד.<br>אתגר שמלמד אותך לעשות את זה נכון — ולהישאר שם.</p>
   <div style="margin:28px 0 8px">
-    <div class="price-old">₪297</div>
+    
     <div class="price-new">₪97</div>
     <div class="price-note">מחיר השקה · מוגבל בזמן</div>
   </div>
@@ -629,14 +676,14 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">כמה זמן זה לוקח ביום ?<span class="faq-arr">▼</span></div><div class="faq-a"><p>הפודקאסט היומי 4-5 דקות. השאלון בהתחלה ~3 דקות. אפשר להאזין תוך כדי הליכה, בדרך לעבודה, תוך כדי אוכל — זה מתוכנן ככה.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">האם זה מתאים לנשים ?<span class="faq-arr">▼</span></div><div class="faq-a"><p>בהחלט. התפריט והתוכנית מותאמים לפי מגדר. הפודקאסטים עוסקים בפיזיולוגיה אוניברסלית — עם התייחסות לייחודיות הנשית.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">אין לי זמן לאימונים כבדים — האם זה בשבילי ?<span class="faq-arr">▼</span></div><div class="faq-a"><p>כן. יש תוכניות לבית ולחדר כושר. תוכנית האימון מותאמת לזמן ולציוד שיש לך — גם 30 דקות שלוש פעמים בשבוע מספיק.</p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">מה קורה אחרי 11 הימים ?<span class="faq-arr">▼</span></div><div class="faq-a"><p>ביום 10 מקבלים תוכנית reverse diet נכונה שמונעת ריבאונד, ומפת דרכים אישית להמשך. האתגר הוא הכנה — לא גמר.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">מה קורה אחרי 10 הימים ?<span class="faq-arr">▼</span></div><div class="faq-a"><p>ביום 10 מקבלים תוכנית reverse diet נכונה שמונעת ריבאונד, ומפת דרכים אישית להמשך. האתגר הוא הכנה — לא גמר.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">מתי מתחיל האתגר ?<span class="faq-arr">▼</span></div><div class="faq-a"><p>מיד לאחר ההרשמה מקבלים גישה לקבוצת ווטסאפ. מועד פתיחה רשמי יוכרז בקבוצה.</p></div></div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div>אתגר החיטוב 11 ימים | אביאל עמירה · WNBF Pro Coach</div>
+  <div>אתגר החיטוב 10 ימים | אביאל עמירה · WNBF Pro Coach</div>
   <div style="margin-top:6px">© 2025 כל הזכויות שמורות | <a href="#" style="color:var(--muted2)">מדיניות פרטיות</a></div>
 </footer>
 
@@ -692,35 +739,59 @@ body.editing [data-edit]:focus{outline:2px solid var(--gold);background:rgba(255
 })();
 
 // ── FORM ──
-const SHEET_URL='https://script.google.com/macros/s/AKfycbzoW2uZ2YAc1MuZxHFiHV4skYQJdZUna42Nz5345tykEOU00NjUVftwpcGQ2yQHNnstaA/exec';
+const SHEET_URL='https://script.google.com/macros/s/AKfycbzoW2uZxHFiHV4skYQJdZUna42Nz5345tykEOU00NjUVftwpcGQ2yQHNnstaA/exec';
+let _gender = null;
+
+function setGenderForm(g) {
+  _gender = g;
+  const active = 'background:rgba(255,107,53,.15);border-color:var(--orange);color:#fff';
+  const idle   = 'background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:11px;text-align:center;cursor:pointer;font-size:.9rem;font-weight:700;color:#8888a0;transition:all .18s';
+  document.getElementById('gbtn-m').style.cssText = (g==='male'   ? active : '') + ';border-radius:10px;padding:11px;text-align:center;cursor:pointer;font-size:.9rem;font-weight:700;transition:all .18s';
+  document.getElementById('gbtn-f').style.cssText = (g==='female' ? active : '') + ';border-radius:10px;padding:11px;text-align:center;cursor:pointer;font-size:.9rem;font-weight:700;transition:all .18s';
+}
+
 function previewPhoto(input){
   if(input.files&&input.files[0]){
     document.getElementById('photoTxt').textContent='✅ '+input.files[0].name;
   }
 }
 
-function calcTDEE(age,height,weight,bf){
-  // Mifflin-St Jeor (זכר)
-  const bmr = 10*weight + 6.25*height - 5*age + 5;
-  const tdee = Math.round(bmr * 1.55); // פעילות בינונית
+function calcTDEE(age,height,weight,gender,actFactor){
+  // Mifflin-St Jeor
+  const bmr = gender==='female'
+    ? 10*weight + 6.25*height - 5*age - 161
+    : 10*weight + 6.25*height - 5*age + 5;
+  const tdee = Math.round(bmr * actFactor);
+  const target = tdee - 400; // גירעון מומלץ
   const protein = Math.round(weight * 2);
-  const fat = Math.round((tdee * 0.25) / 9);
-  const carbs = Math.round((tdee - protein*4 - fat*9) / 4);
-  return {tdee, protein, fat, carbs, bmr:Math.round(bmr)};
+  const fatMin  = gender==='female' ? 45 : 55;
+  const carbs   = Math.max(0, Math.round((target - protein*4 - fatMin*9) / 4));
+  // menu index 1-3 לפי משקל
+  const menuIdx = weight < 70 ? 1 : weight < 90 ? 2 : 3;
+  const menuType = (gender==='female' ? 'אישה' : 'גבר') + '_' + menuIdx;
+  return {bmr:Math.round(bmr), tdee, target, protein, fat:fatMin, carbs, menuIdx, menuType};
 }
 
-function submitForm(){
-  const name=document.getElementById('inp-name').value.trim();
-  const phone=document.getElementById('inp-phone').value.trim();
-  const age=parseInt(document.getElementById('inp-age').value)||0;
-  const height=parseInt(document.getElementById('inp-height').value)||0;
-  const weight=parseInt(document.getElementById('inp-weight').value)||0;
-  const bf=parseInt(document.getElementById('inp-bf').value)||0;
-
+function goStep2(){
+  const name  = document.getElementById('inp-name').value.trim();
+  const phone = document.getElementById('inp-phone').value.trim();
   if(!name||!phone){alert('נא למלא שם וטלפון');return}
-  if(!age||!height||!weight){alert('נא למלא גיל, גובה ומשקל');return}
+  document.getElementById('formStep1').style.display='none';
+  document.getElementById('formStep2').style.display='block';
+}
 
-  const tdee = calcTDEE(age,height,weight,bf);
+function submitForm(skip){
+  const name   = document.getElementById('inp-name').value.trim();
+  const phone  = document.getElementById('inp-phone').value.trim();
+  const age    = parseInt(document.getElementById('inp-age').value)||0;
+  const height = parseInt(document.getElementById('inp-height').value)||0;
+  const weight = parseInt(document.getElementById('inp-weight').value)||0;
+  const bf     = parseInt(document.getElementById('inp-bf').value)||0;
+  const gender = _gender || 'male';
+
+  if(!skip && (!age||!height||!weight)){alert('נא למלא גיל, גובה ומשקל');return}
+
+  const t = (age&&height&&weight) ? calcTDEE(age,height,weight,gender,1.55) : {};
 
   document.getElementById('formWrap').style.display='none';
   document.getElementById('formSuccess').style.display='block';
@@ -728,17 +799,18 @@ function submitForm(){
   if(SHEET_URL){
     fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        name,phone,age,height,weight,bf,
-        tdee:tdee.tdee,protein:tdee.protein,
-        date:new Date().toLocaleString('he-IL')
+        timestamp:new Date().toLocaleString('he-IL'),
+        name, phone, gender: gender==='female'?'אישה':'גבר',
+        age:age||'', height:height||'', weight:weight||'', bf:bf||'',
+        tdee:t.tdee||'', target:t.target||'',
+        protein:t.protein||'', fat:t.fat||'', carbs:t.carbs||'',
+        menuType:t.menuType||''
       })});
   }
 
   setTimeout(()=>{
-    const p=new URLSearchParams({
-      name,phone,age,height,weight,bf,
-      tdee:tdee.tdee,protein:tdee.protein,fat:tdee.fat,carbs:tdee.carbs
-    });
+    const p=new URLSearchParams({name, phone});
+    if(t.tdee) Object.assign(p, {tdee:t.tdee, protein:t.protein, fat:t.fat, carbs:t.carbs, menuType:t.menuType||''});
     window.location.href=`thankyou.html?${p.toString()}`;
   },900);
 }
