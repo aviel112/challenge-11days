@@ -808,6 +808,10 @@ function submitForm(skip){
       })});
   }
 
+  /* עותק ללשונית לידים בלוח המתאמנים */
+  fetch('https://script.google.com/macros/s/AKfycbxSkxJJ1ODs067IOfDkuosXzKX-pVi2W7uTcWKAS-7YFuh8PW9mrjSS8bNC4SaiRTkP/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify({name, phone, age:age||'', funnel:'challenge11', notes:(t.tdee?'TDEE: '+t.tdee+' | יעד: '+t.target:'')})}).catch(()=>{});
+
   setTimeout(()=>{
     const p=new URLSearchParams({name, phone});
     if(t.tdee) Object.assign(p, {tdee:t.tdee, protein:t.protein, fat:t.fat, carbs:t.carbs, menuType:t.menuType||''});
